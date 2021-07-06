@@ -1,7 +1,7 @@
-# HuFa PiBot Project
-This project is about teaching the use of the PiBot.
-Therefore a library for controlling the PiBot, a brief introduction to Python and the most common commands for using the robot are provided.
-Additionally, some tasks are included to evaluate the learning progress of using the robot.
+# PiBot Project
+The project PiBot was originally developed to learn the use of the PiBot.
+The library for controlling the PiBot was taken from https://gitlab.hrz.tu-chemnitz.de/ketf--tu-chemnitz.de/hufa-pibot.git
+In this repository are primarely included the task solutions using the robot library PiBot.
 
 # Installation
 You need a PiBot and the corresponding operating system (OS) on a micro sd card.
