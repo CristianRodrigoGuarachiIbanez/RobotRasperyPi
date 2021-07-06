@@ -1,0 +1,116 @@
+# ###################################### #
+#          !!!   WICHTIG   !!!           #
+# ###################################### #
+# Bearbeiten Sie nicht diese Datei.
+# Das Verändern der bereits vorhandenen Dateien
+# kann zu Komplikationen bei Aktualisierungen des
+# Repositories führen.
+# Unter Umständen geht dabei Ihr gesamter Fortschritt verloren.
+#
+# Legen Sie sich eine eigene Kopie (oder mehrere) dieser Datei
+# mit einem beliebigen Namen in DIESEM Verzeichnis an und
+# bearbeiten Sie die Aufgaben in Ihrer Kopie.
+# ###################################### #
+#          !!!   WICHTIG   !!!           #
+# ###################################### #
+
+# Sie finden hier alle zu bewältigenden Aufgaben für dieses Semester.
+# Die Inhalte bauen aufeinander auf und sollten daher in der entsprechenden
+# Reihenfolge bearbeitet werden.
+# Wenn Sie mit der Bearbeitung der Aufgabe "Task Parcours" fertig sind,
+# schreiben Sie bitte eine Mail an felix.kettner@informati.tu-chemnitz.de.
+# Wir werden dann einen Termin für die Abnahme der Prüfungsleistung
+# vereinbaren. Die Modalitäten dafür sind in "Task Parcours" näher beschrieben.
+
+# Task 1:
+# Machen Sie sich mit dem unten stehenden Code vertraut.
+# Beschreiben Sie wofür die Funktion drive_until_obstacle dient und wie diese
+# funktioniert.
+# Benutzen Sie dafür die Kommentarmöglichkeiten von Python und schreiben Sie
+# Ihre Antwort direkt in ihre Kopie dieses Pythonfiles.
+
+# Task 2:
+# Füllen Sie die Funktion drive_along_wall mit Code! Ziel soll es sein,
+# dass der Roboter sich mit Hilfe des rechten Ultraschallsensors
+# in einem bestimmten Abstand parallel zu einer Wand bewegt.
+# Nutzen Sie dafür die Grundlagen aus dem Python Tutorial und die Hinweise zur
+# Programmierung des PiBots.
+
+# Task 3:
+# Da die Motoren des Roboters nicht absolut gleich laufen, fährt dieser auf
+# freiem Feld über eine entsprechend lange Strecke einen Kreis.
+# Um dem entgegen zu wirken stehen uns die Radencoder zur Verfügung, welche die
+# Radumdrehungen zählen. Eine Radmdrehung entspricht dabei 180 "Ticks".
+# Schreiben Sie eine Funktion drive_straight, welche dafür Sorge trägt, dass
+# der Roboter geradeaus fährt.
+# Ein leichtes Pendel um die Ideallinie ist dabei vertretbar.
+# Schreiben Sie eine einfache Lösung. Sie müssen keinen PID-Regler
+# implementieren.
+
+# Inzwischen sollten Sie einigermaßen mit dem Roboter und dessen
+# Funktionalitäten vertraut sein. Wenn dies der Fall ist, fahren Sie mit
+# Aufgabe 4 fort.
+# Falls nicht, fahren Sie trotzdem mit Aufgabe 4 fort und sehen Sie sich danach
+# nochmals die Aufgaben 1 bis 3 an.
+
+# Task 4:
+# Machen Sie Pause. Mindestens eine Stunde - oder auch den restlichen Tag.
+# Idealerweise mit einem Getränk und analoger Lektüre Ihrer Wahl.
+# Verbuchen Sie die Zeit ohne schlechtes Gewissen unter "Aufgaben für die Uni
+# erledigt".
+
+# Task Parcours:
+# Diese Aufgabe dient der Vorbereitung Ihres Roboters auf den Prüfungsparcours.
+# Diesen muss der Roboter ohne Ihr weiteres Eingreifen bewältigen.
+# Schreiben Sie dazu ein Programm, welches die folgenden Rahmenbedingungen
+# berücksichtigt:
+#
+# Im Normalzustand soll der Roboter in einem festgelegten Abstand parallel zu
+# einer Wand fahren.
+# Diese befindet sich auf der rechten Seite in Fahrtrichtung.
+# Beim folgen der Wand wird der Roboter dabei auf verschiedene Situationen
+# stoßen:
+#
+# Hindernisse
+# Hindernisse, welche vor dem Roboter auftauchen, soll dieser umfahren.
+# Die Hindernisse können dabei in Breite, Länge und Anzahl variieren.
+# Ob die Fahrkurve beim Umfahren "eckig", mit 90° Winkeln, oder wellenförmig
+# verläuft ist dabei Ihrer Fantasie und ihren Programmierfähigkeiten
+# überlassen.
+#
+# Tunnel
+# Sollte sich sowohl auf der rechten, als auch auf der linken Seite des
+# Roboters eine Wand befinden, gilt diese Situation als Tunnel.
+# Hier sollen die frontalen LEDs angeschaltet und beim Verlassen des Tunnels
+# wieder abgeschaltet werden.
+#
+# Garage
+# Sobald sich links, vorn und rechts Wände befinden ist der Roboter am Ziel
+# angekommen. Hier soll der Roboter anhalten und einen Ton abspielen.
+# Bisher haben Sie noch keine Funktion zum Abspielen von Tönen kennen gelernt.
+# Durchstöbern Sie dazu selbst das Repository und finden Sie heraus,
+# wie Sie auch diese Aufgabe bewältigen können.
+#
+# Hinweise zu Prüfungsablauf und Bewertung:
+#
+# Jede Gruppe hat 3 Versuche für den Parcours.
+# Zwischen den Versuchen gibt es die Möglichkeit kleinere Anpassungen
+# am Code vorzunehmen.
+#
+# Die benötigte Zeitdauer für das Bewältigen des Parcours hat keinen Einfluss
+# auf die Bewertung.
+# Allerdings wird der Versuch nach maximal 5 Minuten als fehlgeschlagen
+# gewertet.
+#
+# Ein Fehlschlag bei allen Versuchen führt nicht automatisch zum Nichtbestehen
+# der Prüfungsleistung, da Codelogik und -qualität, beispielsweise
+# struktureller Aufbau, aussagekräftige Benennung von Variablen und Funktionen,
+# sowie Robustheit der Lösung und die Ergebnisse der
+# Aufgaben 1 bis 3 ebenso berücksichtigt werden.
+#
+# Als abgegebener Code zählt die letzte auf dem PiBot von Ihnen ausgeführte
+# Pythondatei zur Bewältigung des Parcours.
+#
+# Im Ordner assets finden Sie eine beispielhafte Darstellung des Parcours
+# (Parcoursbeispiel.png).
+

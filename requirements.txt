@@ -1,0 +1,9 @@
+# List of required python modules
+RPi.GPIO
+Adafruit-SSD1306
+pillow
+pyserial
+enum34
+opencv-python
+# picamera # needs to be installed separately on the RPi because the import fails in the ci
+imutils

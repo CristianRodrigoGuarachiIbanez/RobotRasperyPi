@@ -1,0 +1,35 @@
+image: pibot:latest
+
+stages:
+  - test
+  - build
+#  - deploy
+
+test:
+  stage: test
+  script:
+    - python3 --version
+    - pip3 install --user -r requirements.txt
+    - pip3 install --user pycodestyle
+    - echo "Start testing..."
+    - bash scripts/pep8.sh
+#    - python3 harware_test.py
+    - echo "No more tests available yet."
+
+#build:
+#  stage: build
+#    script:
+#    - pip install --upgrade setuptools wheel
+#    - pip install -r requirements.txt
+#    - python3 setup.py sdist bdist_wheel
+#  artifacts:
+#    paths:
+#      - dist/*
+
+#deploy:
+#  stage: deploy
+#  script:
+#    - pip install --upgrade twine
+#    - twine upload -u $CI_PYPI_USER -p $CI_PYPI_PW dist/*
+#  only:
+#    - master@tuc-roboschool/PiBot
