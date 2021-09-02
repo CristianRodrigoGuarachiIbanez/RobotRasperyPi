@@ -1,0 +1,54 @@
+    def __drivePathWithOpenStart(self, far:Tuple[int,int], mid:Tuple[int,int], clo:Tuple[int,int])->None:
+
+        print('check far distance {}'.format(self.get_distances()))
+        distance:Tuple[bool,bool,bool,str] = self._check_distance(far, self.get_distances())
+        self.__checkDistance(distance=distance);
+        if (not distance[0] and not distance[1] and not distance[2]):
+            print('no obstacles');
+            return;
+        else:
+            try:
+                distance = self._check_distance(mid, self.get_distances());
+                self.__checkDistance(distance);
+                print('check middle distance {}'.format(self.get_distances()));
+            except Exception as e:
+                print('[Inner Exception] {}'.format(e));
+
+            try:
+                self.__checkDistance(self._check_distance(clo, self.get_distances()));
+                print('check close distance {}'.format(self.get_distances()));
+            except Exception as e2:
+                print('[Inner Exception 2] {}'.format(e2));
+
+    def __drivePathCloseStart(self)->None:
+        pass
+    @staticmethod
+    def _check_distance(distance_limit:Tuple[int, int], dist: Tuple[int, int, int]) -> Tuple[bool, bool, bool,str]:
+        conditionLeft = distance_limit[0]<= dist[0] <= distance_limit[1];  # True, True - mid>0 and mid <40
+        conditionMid = distance_limit[0] <= dist[1] <= distance_limit[1];
+        conditionRight = distance_limit[0] <= dist[2] <= distance_limit[1];
+        flag:str;
+        if(distance_limit[1]==160):
+            flag = 'faraway';
+        elif(distance_limit[1]==120):
+            flag = 'middle';
+        elif(distance_limit[1]==80):
+            flag = 'close';
+        return conditionLeft, conditionMid, conditionRight,flag
+
+    def __checkDistance(self, distance:Tuple[bool,bool,bool,str]) -> None:
+
+        if (distance[0] and distance[1] and distance[2]):
+            self.__driveForward(distance[3])
+        elif (distance[0] and distance[1] and not distance[2]):
+            self.__turnRightActions(distance[3])
+        elif(not distance[0] and distance[1] and distance[2]):
+            self.__turnLeftActions(distance[3])
+        elif(distance[0] and not distance[1] and distance[2]):
+            self.__driveForward(distance[3]);
+        elif (distance[0] and not distance[1] and not distance[2]):
+            self.__turnRightActions(distance[3])
+        elif (not distance[0] and not distance[1] and distance[2]):
+            self.__turnLeftActions(distance[3])
+        elif (distance[0] and distance[1] and distance[2]):
+            self.__driveForward(distance[3])
