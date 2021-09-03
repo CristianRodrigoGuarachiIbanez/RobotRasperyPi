@@ -1,23 +1,23 @@
 # -*- coding: utf-8 -*-
-
 import sys
 from pibot.nano import Nano
 from typing import List, Tuple, Dict, Callable, TypeVar, Any
 from logging import info, INFO, DEBUG
-from time import sleep
 import logging
 logging.basicConfig(filename='debugging.log' ,level=INFO, format='%(asctime)s:%(levelname)s:%(message)s');
-
 
 class RoboterController(Nano):
     B = TypeVar('B', bytearray, bytes);
     _MAX_SPEED= 30;
     _SPEED=20
     _MID_SPEED=15;
-    _LOW_SPEED=20;
+    _LOW_SPEED=7;
     _STOP=0;
     def __init__(self) -> None:
         super(RoboterController, self).__init__(); # Nano.__init__()
+
+    def driveAlongtheWall(self)->None:
+        pass
 
     def driveTroughATunnel(self)->None:
         print('driving through a tunnel')
@@ -33,46 +33,35 @@ class RoboterController(Nano):
 
     def _stop(self) -> None:
         self.set_motors(self._STOP,self._STOP);
+        self.set_buzzer(3, 0)
         print('stop')
 
     def _turnRightActions(self, flag) -> None:
+
         if (flag == 75):
-            self.set_motors(self._MAX_SPEED, self._SPEED);
-            print('action -> OC-Right')
-        elif (flag == 50):
-            self.set_motors(self._SPEED, self._LOW_SPEED);
+            self.set_motors(self._MAX_SPEED, self._MID_SPEED);
             print('action -> OC-Right')
         elif (flag ==25):
-            self.set_motors(self._MID_SPEED, self._STOP);
+            self.set_motors(self._SPEED, self._LOW_SPEED);
             print('action -> CC-Right');
 
     def _turnLeftActions(self,flag)->None:
+
         if (flag == 75):
-            self.set_motors(self._SPEED, self._MAX_SPEED);
-            print('action -> OC-Left')
-        elif (flag == 50):
-            self.set_motors(self._LOW_SPEED, self._SPEED);
+            self.set_motors(self._MID_SPEED, self._MAX_SPEED);
             print('action -> OC-Left')
         elif (flag ==25):
-            self.set_motors(self._STOP, self._MID_SPEED);
+            self.set_motors(self._LOW_SPEED, self._SPEED);
             print('action -> CC-Left');
 
-    def _driveForward(self, flag) -> None:
-        if(flag==75):
-            self.set_motors(self._MAX_SPEED, self._MAX_SPEED);
-            print('action -> forward');
-        elif(flag==50):
-            self.set_motors(self._SPEED, self._SPEED);
-            print('action -> forward unaccelerated ')
-        elif(flag==25):
-            self.set_motors(self._STOP,self._STOP);
-            print('action -> stop');
     def _spinRight(self) -> None:
         self.set_motors(self._MAX_SPEED,self._STOP);
         print('spin right')
+
     def _spinLeft(self) -> None:
         self.set_motors(self._STOP, self._MAX_SPEED);
         print('spin left')
+
     @staticmethod
     def _convertIntToBool(limit, obstacle)->Tuple:
         cL = limit - 17 <= obstacle[0] <= limit;  # clo -> 80-40 < x < 80

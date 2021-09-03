@@ -146,8 +146,7 @@ class Roboter(RoboterController):
                     return False;
             return False
 
-    def __drivePathWithOpenStart(self, far: Tuple[int, int], mid: Tuple[int, int], clo: Tuple[int, int]) -> None:
-        pass
+
 
 def main():
 
