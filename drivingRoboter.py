@@ -159,10 +159,23 @@ class DrivingRoboter(RoboterController):
                 #       and ((self.get_distances()[1] >= self.limits[1]*2) and (self.get_distances()[1]!=0))):
                 return False;
 
+    def driveAlongtheWall(self) -> None:
+        print('driving along wall')
+
+        # while not (self.get_distances()[2] <= 10 and self.get_distances()[2]!=0):
+        #     if  (self.get_distances()[1] > self.limits[0]):
+        while not (self.get_distances()[0] <= 10 and self.get_distances()[0] != 0):
+            if (self.get_distances()[1] > self.limits[0]):
+                print('no obstacles', self.get_encoders())
+                self.reset_encoders()
+                self.driveStraigthforward();
+        exit()
+
 def main():
 
     robot = DrivingRoboter()
-    robot.mainLoop()
+    #robot.mainLoop()
+    robot.driveAlongtheWall()
     print("outside the main loop")
 
 if __name__ == "__main__":

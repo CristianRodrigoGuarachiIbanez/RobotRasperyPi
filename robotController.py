@@ -16,8 +16,7 @@ class RoboterController(Nano):
     def __init__(self) -> None:
         super(RoboterController, self).__init__(); # Nano.__init__()
 
-    def driveAlongtheWall(self)->None:
-        pass
+
 
     def driveTroughATunnel(self)->None:
         print('driving through a tunnel')
