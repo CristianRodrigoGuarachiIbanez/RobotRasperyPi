@@ -161,15 +161,19 @@ class DrivingRoboter(RoboterController):
 
     def driveAlongtheWall(self) -> None:
         print('driving along wall')
+        while not (self.get_distances()[2] <= 5 and self.get_distances()[2]!=0):
+             if (self.get_distances()[1] > self.limits[1]):
+                 print('no obstacles', self.get_encoders())
+                 self.driveStraigthforward();
+                 if(self.get_encoders()[0] > self.get_encoders()[1]):
+                    self.driveStraigthforward((15,20))#
+                 elif(self.get_encoders()[0]<self.get_encoders()[1]):
+                    self.driveStraigthforward((20,15))
+                 print('after adjustment of the wheel rotation:', self.get_encoders())
+             else:
+                 self._stop()
+        self._stop();
 
-        # while not (self.get_distances()[2] <= 10 and self.get_distances()[2]!=0):
-        #     if  (self.get_distances()[1] > self.limits[0]):
-        while not (self.get_distances()[0] <= 10 and self.get_distances()[0] != 0):
-            if (self.get_distances()[1] > self.limits[0]):
-                print('no obstacles', self.get_encoders())
-                self.reset_encoders()
-                self.driveStraigthforward();
-        exit()
 
 def main():
 

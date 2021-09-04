@@ -23,8 +23,9 @@ class RoboterController(Nano):
         self.driveStraigthforward(20)
 
     def driveStraigthforward(self, speed=None) -> None:
+        assert(isinstance(speed,(list,tuple))), 'speed should be tuple or list'
         if(speed is not None):
-            self.set_motors(speed,speed);
+            self.set_motors(speed[0],speed[1]);
             print('driving forwards')
         else:
             self.set_motors(self._SPEED, self._SPEED);
