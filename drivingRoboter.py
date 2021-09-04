@@ -169,6 +169,8 @@ class DrivingRoboter(RoboterController):
                     self.driveStraigthforward((15,20))#
                  elif(self.get_encoders()[0]<self.get_encoders()[1]):
                     self.driveStraigthforward((20,15))
+                 else:
+                     self.driveStraigthforward((20,20));
                  print('after adjustment of the wheel rotation:', self.get_encoders())
              else:
                  self._stop()
