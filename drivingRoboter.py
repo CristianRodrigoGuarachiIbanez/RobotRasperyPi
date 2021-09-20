@@ -2,18 +2,20 @@
 import sys
 from pibot.nano import Nano
 from typing import List, Tuple, Dict, Callable, TypeVar, Any, Generator
-from logging import info, INFO, DEBUG
+from logging import info, INFO, DEBUG, basicConfig
 from robotController import RoboterController
 from pibot.leds import set_led, init_leds
 from pibot import constants as c
 from sys import exit
+from time import sleep
+basicConfig(filename='debugging.log' ,level=INFO, format='%(asctime)s:%(levelname)s:%(message)s');
 class DrivingRoboter(RoboterController):
     B = TypeVar('B', bytearray, bytes);
     _dist = None;
     _distance_limit= 20;
     def __init__(self) -> None:
         super(DrivingRoboter, self).__init__(); # Nano.__init__()
-        self.limits = [25, 75]
+        self.limits = [5, 20]
     def mainLoop(self) -> None:
         obstacle = (0, 0, 0)
         tunnelLeft = None
@@ -52,6 +54,7 @@ class DrivingRoboter(RoboterController):
                     # drive forward as long as obstacle in the middle is further away from the limit
                     if(self.get_distances()[1] <= 5 and self.get_distances()[1]!=0):
                         self._spinRight()
+                        sleep(1)
                     else:
                         print('drive through a tunnel')
                         self.driveTroughATunnel()
@@ -92,6 +95,7 @@ class DrivingRoboter(RoboterController):
                 while not (self.avoidDistantLeftObstacle(self.limits[1]) or self.avoidDistantRightObstacle(self.limits[1])):
                     if (self.get_distances()[1]<=10 and self.get_distances()[1]!=0):
                         self._spinRight()
+                        sleep(1)
                     else:
                         print('drive forward')
                         self.driveStraigthforward((20,20))
@@ -184,20 +188,19 @@ class DrivingRoboter(RoboterController):
         print('driving along wall')
         while not (self.get_distances()[2] <= 5 and self.get_distances()[2]!=0):
              if (self.get_distances()[1] > 20):
-                 print('no obstacles', self.get_encoders())
+                 info('no obstacles', self.get_encoders())
                  self.driveStraigthforward();
                  if(self.get_encoders()[0] > self.get_encoders()[0]):
                     self.driveStraigthforward((0,20))#
-                    print('rotate left', self.get_encoders())
+                    info('rotate left', self.get_encoders())
                  elif(self.get_encoders()[0]<self.get_encoders()[1]):
                     self.driveStraigthforward((20,0))
-                    print('rotate right', self.get_encoders())
+                    info('rotate right', self.get_encoders())
                  else:
                      self.driveStraigthforward((20,20));
-                 print('after adjustment of the wheel rotation:', self.get_encoders())
+                 info('after adjustment of the wheel rotation:', self.get_encoders())
              else:
                  self._stop()
-        self._stop();
 
 
 def main():
