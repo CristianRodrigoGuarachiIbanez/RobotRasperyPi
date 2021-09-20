@@ -178,7 +178,7 @@ class DrivingRoboter(RoboterController):
                 return False;
     def regulateWheelRotation(self)->None:
              if (self.get_encoders()[0] > self.get_encoders()[0]):
-                 self.driveStraigthforward((0, 20))  #
+                 self.driveStraigthforward((0, 20))
              elif (self.get_encoders()[0] < self.get_encoders()[1]):
                  self.driveStraigthforward((20, 0))
              else:
@@ -188,20 +188,19 @@ class DrivingRoboter(RoboterController):
         print('driving along wall')
         while not (self.get_distances()[2] <= 5 and self.get_distances()[2]!=0):
              if (self.get_distances()[1] > 20):
-                 info('no obstacles'.format(self.get_encoders()))
+                 info('no obstacles {}'.format(self.get_encoders()))
                  self.driveStraigthforward();
                  if(self.get_encoders()[0] > self.get_encoders()[0]):
                     self.driveStraigthforward((0,20))#
-                    info('rotate left'.format(self.get_encoders()))
+                    info('rotate left {}'.format(self.get_encoders()))
                  elif(self.get_encoders()[0]<self.get_encoders()[1]):
                     self.driveStraigthforward((20,0))
-                    info('rotate right'.format(self.get_encoders()))
+                    info('rotate right {}'.format   (self.get_encoders()))
                  else:
                      self.driveStraigthforward((20,20));
-                 info('after adjustment of the wheel rotation:'.format(self.get_encoders()))
+                 info('after adjustment of the wheel rotation: {}'.format(self.get_encoders()))
              else:
                  self._stop()
-
 
 def main():
 
