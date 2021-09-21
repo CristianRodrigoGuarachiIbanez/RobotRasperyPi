@@ -194,14 +194,17 @@ class DrivingRoboter(RoboterController):
     def test(self)->None:
         counter=0;
         while(True):
-            print(self.get_encoders())
+            print('index: {}, value:{}'.format(counter, self.get_encoders()))
             if(10<counter<50):
                 self.set_motors(40,0)
+                print('left rotation -> value:{}'.format(self.get_encoders()))
             elif(50<counter<100):
                 self.set_motors(0,40)
+                print('right rotation -> value:{}'.format(self.get_encoders()))
             else:
                 pass
             counter+=1
+            print('index: {}, value:{}'.format(counter, self.get_encoders()))
             if(counter>100):
                 break
 
