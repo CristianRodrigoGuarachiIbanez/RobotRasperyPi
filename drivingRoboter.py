@@ -28,7 +28,6 @@ class DrivingRoboter(RoboterController):
                 break;
             obstacle = self.get_distances()
             print(obstacle)
-
             # 1.- check if any obstacle in 5 cm
             if(any(self.anyHit(obstacle, self.limits[0]))): # any Ob closer than 5 cm
                 # True if obstacles on both sides, but not in the middle
@@ -52,7 +51,7 @@ class DrivingRoboter(RoboterController):
                             self._stop()
                             pass
                 if(self.anyHit(self.get_distances(),self.limits[0])[2]): # obstacle_distance <= 5
-                    # check, if none object right or object in front
+                    # check, if no object right or object in front
                     if not (self.avoidCloseRightObstacle(self.limits[0])): # False: Ob right > 5 or Ob Mid < 5,
                         self._stop()
                         pass
@@ -103,7 +102,8 @@ class DrivingRoboter(RoboterController):
 
     def searchForBarricade(self)->bool:
         '''
-        check if the distance values in range of 3-6
+        check if a obstacle in range of 2-6 cm
+        :return: a boolean value if all sensors detect obstacles
         '''
         distance = self._convertIntToBool(self.limits[0]+1,self.get_distances())
         if(distance[0] and distance[1] and distance[2]):
