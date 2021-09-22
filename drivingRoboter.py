@@ -28,45 +28,53 @@ class DrivingRoboter(RoboterController):
                 break;
             obstacle = self.get_distances()
             print(obstacle)
-            # if all sensors are NOT detecting a obstacle, drive forward -> regardless the limit
-            while(obstacle[0] < self.limits[0] and obstacle[1] < self.limits[0] and obstacle[2] < self.limits[0]):
-                    self.driveStraigthforward();
+
             # 1.- check if any obstacle in 5 cm
             if(any(self.anyHit(obstacle, self.limits[0]))): # any Ob closer than 5 cm
                 # True if obstacles on both sides, but not in the middle
                 if(self.anyHit(self.get_distances(),self.limits[0])[0]): # if Ob left <= 5
-                    if not (self.avoidCloseLeftObstacle(self.limits[0])):
+                    if not (self.avoidCloseLeftObstacle(self.limits[0])): #True: Ob right < 5
                         self._stop()
+                        pass
                     else:
                         self._stop()
                         if (self.driveTroughATunnel()):  # True: Ob Mid < 5, False: Ob laterals > 5 or < 2
                             self._stop()
                             if (self.searchForBarricade()):
                                 self.ledsEnd()
-                                self._stop();
+                                self._park();
                                 exit('the robot was successfully parked')
                             else:
+                                self._stop()
                                 self.ledsEnd()
                                 continue
                         else:
-                            continue
+                            self._stop()
+                            pass
                 if(self.anyHit(self.get_distances(),self.limits[0])[2]): # obstacle_distance <= 5
+                    # check, if none object right or object in front
                     if not (self.avoidCloseRightObstacle(self.limits[0])): # False: Ob right > 5 or Ob Mid < 5,
                         self._stop()
+                        return
+                    # check if obstacle left closer < 5 cm
                     else: # True: Ob left < 5
+                        self._stop()
+                        # check if obstacle in front < 6 cm
                         if(self.driveTroughATunnel()): #True: Ob Mid < 5, False: Ob laterals > 5 cm or < 2
                             self._stop()
                             if (self.searchForBarricade()): # True: Ob all over < 2-5
                                 self.ledsEnd()
-                                self._stop();
+                                self._park()
                                 exit('the robot was successfully parked')
-                            else:
+                            else: # obstacles out of relevant range
+                                self._stop()
                                 self.ledsEnd()
                                 continue
+                        # check if obstacle is out of range 4-10
                         else:
-                            continue
-
-                while not (self.anyHit(self.get_distances(),self.limits[0]) or self.anyHit(self.get_distances(),self.limits[0])):
+                            self._stop()
+                            pass
+                while not (self.anyHit(self.get_distances(),self.limits[0])[0] or self.anyHit(self.get_distances(),self.limits[0])[2]):
                     # drive forward as long as obstacle in the middle is further away from the limit
                     if(self.get_distances()[1] <= 5 and self.get_distances()[1]!=0):
                         self._spinRight()
@@ -75,6 +83,9 @@ class DrivingRoboter(RoboterController):
                         self.driveStraigthforward((30,30))
                         # break if the obstacles at both sides are gone
                 self._stop()
+            elif(all(self.anyHit(self.get_distances(), self.limits[0]))):
+                # if all sensors are NOT detecting a obstacle, drive forward -> regardless the limit
+                self._park()
             else:
                 while not (self.get_distances()[0] <= self.limits[1] or self.get_distances()[2] <= self.limits[1]):
                     if (self.get_distances()[1] >= self.limits[1]):
@@ -82,34 +93,6 @@ class DrivingRoboter(RoboterController):
                     else:
                         break;
 
-            # 2.- check if any obstacle is in 20 cm, first left, then right, dann foreward
-            if(any(self.anyHit(obstacle, self.limits[1]))):
-                if(self.anyHit(self.get_distances(), self.limits[1])[0]):
-                    if not (self.avoidDistantLeftObstacle(self.limits[1])):
-                        self._stop()
-                    else: # True: Ob Right < 20
-                        pass
-                if(self.anyHit(self.get_distances(),self.limits[1])[2]):
-                    if not (self.avoidDistantRightObstacle(self.limits[1])):
-                        self._stop()
-                    else:  # True: Ob left < 20
-                        pass
-                while not (self.anyHit(self.get_distances(),self.limits[1]) or self.anyHit(self.get_distances(),self.limits[1])):
-                    # drive forward as long as obstacle in the middle is further away from the limit
-                    if(self.get_distances()[1] <= 5 and self.get_distances()[1]!=0):
-                        self._spinRight()
-                        sleep(1)
-                    else:
-                        self.driveStraigthforward((30,30))
-                        # break if the obstacles at both sides are gone
-                self._stop()
-
-            else:
-                while not (self.get_distances()[0] <= 50 or self.get_distances()[2] <= 50):
-                    if (self.get_distances()[1] >= 50):
-                        self.driveStraigthforward();
-                    else:
-                        break;
     def anyHit(self, obstacle:Tuple[int,int,int], limit:int)->List[bool]:
         print('ANY HIT:{}'.format(any([obstacle[0]<=limit and obstacle[0]!=0,
                                        obstacle[1]<=limit and obstacle[1]!=0,
@@ -119,7 +102,10 @@ class DrivingRoboter(RoboterController):
                     obstacle[2]<=limit and obstacle[2]!=0]
 
     def searchForBarricade(self)->bool:
-        distance = self._convertIntToBool(self.limits[0],self.get_distances())
+        '''
+        check if the distance values in range of 3-6
+        '''
+        distance = self._convertIntToBool(self.limits[0]+1,self.get_distances())
         if(distance[0] and distance[1] and distance[2]):
             return True
         return False
@@ -166,7 +152,7 @@ class DrivingRoboter(RoboterController):
                     return False
             return False;
     def regulateWheelRotation(self)->None:
-             if (self.get_encoders()[0] > self.get_encoders()[0]):
+             if (self.get_encoders()[0] > self.get_encoders()[1]):
                  self.driveStraigthforward((0, 20))
              elif (self.get_encoders()[0] < self.get_encoders()[1]):
                  self.driveStraigthforward((20, 0))

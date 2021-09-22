@@ -19,13 +19,13 @@ class RoboterController(Nano):
         super(RoboterController, self).__init__(); # Nano.__init__()
     def driveTroughATunnel(self)->bool:
         print('driving through a tunnel')
-        while ((2<self.get_distances()[0]<5 and self.get_distances()[0]!=0) or (2<self.get_distances()[2] < 5 and self.get_distances()[2]!=0)):
-            if(self.get_distances()[1] > 5 and self.get_distances()[1]!=0):
+        while ((4<self.get_distances()[0]<10 and self.get_distances()[0]!=0) or (4<self.get_distances()[2] <10 and self.get_distances()[2]!=0)):
+            if(self.get_distances()[1] > 6 and self.get_distances()[1]!=0):
                 self.driveStraigthforward((20,20))
                 self.ledsStart()
             else:
-                return True # object closer than 5 cm
-        return False # lateral object further than 5 cm
+                return True # object in front closer than 5 cm
+        return False # lateral object further than 6 cm
     def ledsStart(self)->None:
         init_leds()
         set_led(c.LED_MID, c.RED)
@@ -47,9 +47,10 @@ class RoboterController(Nano):
 
     def _stop(self) -> None:
         self.set_motors(self._STOP,self._STOP);
-        self.set_buzzer(3, 0)
         print('stop')
-
+    def _park(self)->None:
+        self._stop()
+        self.set_buzzer(3, 0)
     def _turnRightActions(self, flag) -> None:
 
         if (flag == 25):
@@ -78,8 +79,8 @@ class RoboterController(Nano):
 
     @staticmethod
     def _convertIntToBool(limit, obstacle)->Tuple:
-        cL = 2 <= obstacle[0] <= limit;  # clo -> 80-40 < x < 80
-        cM = 2 <= obstacle[1] <= limit;
-        cR = 2 <= obstacle[2] <= limit;
+        cL = 3 <= obstacle[0] <= limit;  # clo -> 80-40 < x < 80
+        cM = 3 <= obstacle[1] <= limit;
+        cR = 3 <= obstacle[2] <= limit;
         return cL, cM, cR;
 
