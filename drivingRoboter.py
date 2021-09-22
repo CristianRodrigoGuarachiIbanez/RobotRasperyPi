@@ -18,8 +18,8 @@ class DrivingRoboter(RoboterController):
         self.limits = [5, 20]
     def mainLoop(self) -> None:
         obstacle = (0, 0, 0)
-        tunnelLeft = None
-        tunnelRight = None
+        left:bool = None
+        right:bool = None
         obstacleCloser = None
 
         while(True):
@@ -30,12 +30,13 @@ class DrivingRoboter(RoboterController):
             print(obstacle)
             # 1.- check if any obstacle in 5 cm
             if(any(self.anyHit(obstacle, self.limits[0]))): # any Ob closer than 5 cm
-                # True if obstacles on both sides, but not in the middle
                 if(self.anyHit(self.get_distances(),self.limits[0])[0]): # if Ob left <= 5
-                    if not (self.avoidCloseLeftObstacle(self.limits[0])): #True: Ob right < 5
+                    left = self.avoidCloseLeftObstacle(self.limits[0])
+                    if not (left): #True: Ob right < 5
+                        # active, if obstacle left further than 5 cm or obstacle in front closer than 5 cm
                         self._stop()
                         pass
-                    else:
+                    else: # active if obstacles on both sides, but not in the middle
                         self._stop()
                         if (self.driveTroughATunnel()):  # True: Ob Mid < 5, False: Ob laterals > 5 or < 2
                             self._stop()
@@ -52,7 +53,8 @@ class DrivingRoboter(RoboterController):
                             pass
                 if(self.anyHit(self.get_distances(),self.limits[0])[2]): # obstacle_distance <= 5
                     # check, if no object right or object in front
-                    if not (self.avoidCloseRightObstacle(self.limits[0])): # False: Ob right > 5 or Ob Mid < 5,
+                    right = self.avoidCloseRightObstacle(self.limits[0])
+                    if not (right): # False: Ob right > 5 or Ob Mid < 5,
                         self._stop()
                         pass
                     # check if obstacle left closer < 5 cm
@@ -131,6 +133,7 @@ class DrivingRoboter(RoboterController):
                     return False
             return False
     def avoidCloseLeftObstacle(self, limit)->bool:
+
             while((self.get_distances()[0] <= limit) and (self.get_distances()[0]!=0)):
                 if (self.get_distances()[2] <= limit and self.get_distances()[2]!=0):
                     self._turnRightActions(limit);
