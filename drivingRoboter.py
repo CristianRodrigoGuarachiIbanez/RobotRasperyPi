@@ -55,7 +55,7 @@ class DrivingRoboter(RoboterController):
                     # check, if none object right or object in front
                     if not (self.avoidCloseRightObstacle(self.limits[0])): # False: Ob right > 5 or Ob Mid < 5,
                         self._stop()
-                        return
+                        pass
                     # check if obstacle left closer < 5 cm
                     else: # True: Ob left < 5
                         self._stop()
