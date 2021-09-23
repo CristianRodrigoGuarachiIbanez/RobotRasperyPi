@@ -47,9 +47,10 @@ class DrivingRoboter(RoboterController):
                     #         self._stop()
                     #         pass
                     self._stop()
-                if(self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0): # obstacle_distance <= 5
-                    while(self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0):
-                        self._spinLeft()
+                if((self.get_distances()[2] <= self.limits[0]) and (self.get_distances()[2]!=0)): # obstacle_distance <= 5
+                    while((self.get_distances()[2] <= self.limits[0]) and (self.get_distances()[2]!=0)):
+                        #self._spinLeft()
+                        self.set_motors(0, 30)
                     # check, if no object right or object in front
                     # right = self.avoidCloseRightObstacle(self.limits[0])
                     # if not (right): # False: Ob right > 5 or Ob Mid < 5,
@@ -193,7 +194,11 @@ class DrivingRoboter(RoboterController):
             if(10<counter<50):
                 self.set_motors(40,0)
                 print('left rotation -> value:{}'.format(self.get_encoders()))
-            elif(50<counter<100):
+            elif(50<counter<55):
+                self.set_motors(0, 0)
+                self.reset_encoders()
+                print('reset -> value:{}'.format(self.get_encoders()))
+            elif(55<counter<100):
                 self.set_motors(0,40)
                 print('right rotation -> value:{}'.format(self.get_encoders()))
             else:
