@@ -15,19 +15,13 @@ class DrivingRoboter(RoboterController):
     _distance_limit= 20;
     def __init__(self) -> None:
         super(DrivingRoboter, self).__init__(); # Nano.__init__()
-        self.limits = [5, 20]
+        self.limits = [10, 20]
     def mainLoop(self) -> None:
-        obstacle = (0, 0, 0)
-        left:bool = None
-        right:bool = None
-        obstacleCloser = None
-
         while(True):
             if(self.searchForBarricade() is True):
                 self._stop();
                 break;
-            #obstacle = self.get_distances()
-            #print(obstacle)
+            print(self.get_distances())
             # 1.- check if any obstacle in 5 cm
             if(any(self.anyHit(self.get_distances(), self.limits[0]))): # any Ob closer than 5 cm
                 if(self.anyHit(self.get_distances(),self.limits[0])[0]): # if Ob left <= 5
@@ -80,9 +74,11 @@ class DrivingRoboter(RoboterController):
                     #         self._stop()
                     #         pass
                     self._stop()
-                while not (self.anyHit(self.get_distances(),self.limits[0])[0] or self.anyHit(self.get_distances(),self.limits[0])[2]):
+                leftOb = self.anyHit(self.get_distances(),self.limits[0])[0]
+                rightOb = self.anyHit(self.get_distances(),self.limits[0])[2]
+                while not (leftOb or rightOb) :
                     # drive forward as long as obstacle in the middle is further away from the limit
-                    if(self.get_distances()[1] <= 5 and self.get_distances()[1]!=0):
+                    if(self.get_distances()[1] <= 30 and self.get_distances()[1]!=0):
                         self._spinRight()
                         sleep(1)
                     else:
