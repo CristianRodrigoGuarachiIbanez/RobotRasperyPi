@@ -24,7 +24,7 @@ class DrivingRoboter(RoboterController):
             print(self.get_distances())
             # 1.- check if any obstacle in 5 cm
             if(any(self.anyHit(self.get_distances(), self.limits[0]))): # any Ob closer than 5 cm
-                if(self.anyHit(self.get_distances(),self.limits[0])[0]): # if Ob left <= 5
+                if((self.get_distances()[0] <= self.limits[0]) and (self.get_distances()[0]!=0)): # if Ob left <= 5
                     while((self.get_distances()[0] <= self.limits[0]) and (self.get_distances()[0]!=0)):
                         self._spinRight()
                     #left = self.avoidCloseLeftObstacle(self.limits[0])
@@ -47,7 +47,7 @@ class DrivingRoboter(RoboterController):
                     #         self._stop()
                     #         pass
                     self._stop()
-                if(self.anyHit(self.get_distances(),self.limits[0])[2]): # obstacle_distance <= 5
+                if(self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0): # obstacle_distance <= 5
                     while(self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0):
                         self._spinLeft()
                     # check, if no object right or object in front
@@ -74,8 +74,10 @@ class DrivingRoboter(RoboterController):
                     #         self._stop()
                     #         pass
                     self._stop()
-                leftOb = self.anyHit(self.get_distances(),self.limits[0])[0]
-                rightOb = self.anyHit(self.get_distances(),self.limits[0])[2]
+                #leftOb = self.anyHit(self.get_distances(),self.limits[0])[0]
+                leftOb = self.get_distances()[0] <= self.limits[0]
+                #rightOb = self.anyHit(self.get_distances(),self.limits[0])[2]
+                rightOb = self.get_distances()[2] <= self.limits[0]
                 while not (leftOb or rightOb) :
                     # drive forward as long as obstacle in the middle is further away from the limit
                     if(self.get_distances()[1] <= 30 and self.get_distances()[1]!=0):
