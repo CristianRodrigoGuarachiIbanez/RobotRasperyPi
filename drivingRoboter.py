@@ -23,10 +23,14 @@ class DrivingRoboter(RoboterController):
                 break;
             print(self.get_distances())
             # 1.- check if any obstacle in 5 cm
+
             if(any(self.anyHit(self.get_distances(), self.limits[0]))): # any Ob closer than 5 cm
-                if((self.get_distances()[0] <= self.limits[0]) and (self.get_distances()[0]!=0)): # if Ob left <= 5
-                    while((self.get_distances()[0] <= self.limits[0]) and (self.get_distances()[0]!=0)):
+                left = self.get_distances()
+                if((left[0] <= self.limits[0]) and (left[0]!=0)): # if Ob left <= 5
+                    left = self.get_distances()
+                    while((left[0] <= self.limits[0]) and (left[0]!=0)):
                         self._spinRight()
+                        print(self.get_distances()[0])
                     #left = self.avoidCloseLeftObstacle(self.limits[0])
                     #if not (left): #True: Ob right < 5
                         # active, if obstacle left further than 5 cm or obstacle in front closer than 5 cm
@@ -47,10 +51,13 @@ class DrivingRoboter(RoboterController):
                     #         self._stop()
                     #         pass
                     self._stop()
-                if((self.get_distances()[2] <= self.limits[0]) and (self.get_distances()[2]!=0)): # obstacle_distance <= 5
-                    while((self.get_distances()[2] <= self.limits[0]) and (self.get_distances()[2]!=0)):
+                right = right = self.get_distances()
+                if((right[2] <= self.limits[0]) and (right[2]!=0)): # obstacle_distance <= 5
+                    right = self.get_distances()
+                    while((right[2] <= self.limits[0]) and (right[2]!=0)):
                         #self._spinLeft()
                         self.set_motors(0, 30)
+                        print(self.get_distances())
                     # check, if no object right or object in front
                     # right = self.avoidCloseRightObstacle(self.limits[0])
                     # if not (right): # False: Ob right > 5 or Ob Mid < 5,
