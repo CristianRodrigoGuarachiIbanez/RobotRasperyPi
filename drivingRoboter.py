@@ -9,6 +9,7 @@ from pibot.buttons import wait_for_any, wait_for_button_press, init_buttons
 from sys import exit
 from time import sleep
 basicConfig(filename='debugging.log' ,level=INFO, format='%(asctime)s:%(levelname)s:%(message)s');
+init_buttons()
 class DrivingRoboter(RoboterController):
     B = TypeVar('B', bytearray, bytes);
     _dist = None;
@@ -16,9 +17,7 @@ class DrivingRoboter(RoboterController):
     def __init__(self) -> None:
         super(DrivingRoboter, self).__init__(); # Nano.__init__()
         self.limits = [10, 20]
-
     def mainLoop(self) -> None:
-        init_buttons()
         print('press left button to continue :)')
         wait_for_button_press(c.BUTTON_LEFT)
         while(True):
@@ -27,7 +26,6 @@ class DrivingRoboter(RoboterController):
                 break;
             print(self.get_distances())
             # 1.- check if any obstacle in 5 cm
-
             if(any(self.anyHit(self.get_distances(), self.limits[0]))): # any Ob closer than 5 cm
                 #left=
                 if((self.get_distances()[0] <= self.limits[0]) and (self.get_distances()[0]!=0)): # if Ob left <= 5
@@ -101,7 +99,8 @@ class DrivingRoboter(RoboterController):
                 self._stop()
                 while((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0) and (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0)):
                     if (self.get_distances()[1] <= 30 and self.get_distances()[1] != 0):
-                        self.driveStraigthforward()
+                        self.driveTroughATunnel()
+                        self.ledsEnd()
                     else: # barricade?
                         continue
             elif(all(self.anyHit(self.get_distances(), self.limits[0]))):
