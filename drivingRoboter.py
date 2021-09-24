@@ -4,8 +4,8 @@ from pibot.nano import Nano
 from typing import List, Tuple, Dict, Callable, TypeVar, Any, Generator
 from logging import info, INFO, DEBUG, basicConfig
 from robotController import RoboterController
-from pibot.leds import set_led, init_leds
-
+from pibot import constants as c
+from pibot.buttons import wait_for_any, wait_for_button_press, init_buttons
 from sys import exit
 from time import sleep
 basicConfig(filename='debugging.log' ,level=INFO, format='%(asctime)s:%(levelname)s:%(message)s');
@@ -17,6 +17,8 @@ class DrivingRoboter(RoboterController):
         super(DrivingRoboter, self).__init__(); # Nano.__init__()
         self.limits = [10, 20]
     def mainLoop(self) -> None:
+        init_buttons()
+        wait_for_button_press(c.BUTTON_LEFT)
         while(True):
             if(self.searchForBarricade() is True):
                 self._stop();
