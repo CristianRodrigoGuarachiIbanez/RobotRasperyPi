@@ -20,6 +20,7 @@ class RoboterController(Nano):
         super(RoboterController, self).__init__(); # Nano.__init__()
     def driveTroughATunnel(self)->None:
         print('driving through a tunnel')
+        self.ledsStart()
         if (self.get_distances()[0] <= 5 and self.get_distances()[0] != 0):
             self._spinRight()
             sleep(1)
@@ -28,7 +29,6 @@ class RoboterController(Nano):
             sleep(1)
         else:
             self.driveStraigthforward((15,15))
-            self.ledsStart()
     def ledsStart(self)->None:
         init_leds()
         set_led(c.LED_MID, c.RED)
