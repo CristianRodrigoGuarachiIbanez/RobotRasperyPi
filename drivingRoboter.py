@@ -82,19 +82,24 @@ class DrivingRoboter(RoboterController):
                     #         self._stop()
                     #         pass
                     self._stop()
-                #leftOb = self.anyHit(self.get_distances(),self.limits[0])[0]
-                #leftOb =
-                #rightOb = self.anyHit(self.get_distances(),self.limits[0])[2]
-                #rightOb =
                 while not ((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0) or (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0)):
                     # drive forward as long as obstacle in the middle is further away from the limit
                     if(self.get_distances()[1] <= 30 and self.get_distances()[1]!=0):
-                        self._spinRight()
-                        sleep(1)
+                        if (self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0):
+                            self._spinRight()
+                            sleep(1)
+                        else:
+                            self._spinLeft()
+                            sleep(1)
                     else:
                         self.driveStraigthforward((30,30))
                         # break if the obstacles at both sides are gone
                 self._stop()
+                while((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0) and (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0)):
+                    if (self.get_distances()[1] <= 30 and self.get_distances()[1] != 0):
+                        self.driveStraigthforward()
+                    else: # barricade?
+                        continue
             elif(all(self.anyHit(self.get_distances(), self.limits[0]))):
                 # if all sensors are NOT detecting a obstacle, drive forward -> regardless the limit
                 self._park()
