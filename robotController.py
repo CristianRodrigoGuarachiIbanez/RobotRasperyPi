@@ -12,20 +12,15 @@ class RoboterController(Nano):
     B = TypeVar('B', bytearray, bytes);
     _MAX_SPEED= 30;
     _SPEED=20
-    _MID_SPEED=10;
+    _MID_SPEED=-5;
     _LOW_SPEED=5;
     _STOP=0;
     def __init__(self) -> None:
         super(RoboterController, self).__init__(); # Nano.__init__()
-    def driveTroughATunnel(self)->bool:
+    def driveTroughATunnel(self)->None:
         print('driving through a tunnel')
-        while ((4<self.get_distances()[0]<10 and self.get_distances()[0]!=0) or (4<self.get_distances()[2] <10 and self.get_distances()[2]!=0)):
-            if(self.get_distances()[1] > 6 and self.get_distances()[1]!=0):
-                self.driveStraigthforward((20,20))
-                self.ledsStart()
-            else:
-                return True # object in front closer than 5 cm
-        return False # lateral object further than 6 cm
+        self.driveStraigthforward((15,15))
+        self.ledsStart()
     def ledsStart(self)->None:
         init_leds()
         set_led(c.LED_MID, c.RED)
@@ -34,8 +29,11 @@ class RoboterController(Nano):
         set_led(c.LED_FRONT_LEFT, c.ON)
         set_led(c.LED_FRONT_RIGHT, c.ON)
     def ledsEnd(self)->None:
-        set_led(c.LED_FRONT_LEFT, c.OFF)
-        set_led(c.LED_FRONT_RIGHT, c.OFF)
+        if(self.get_distances()[0]>7 and self.get_distances()[2]>7):
+            if(self.get_distances()[1] >20):
+                set_led(c.LED_FRONT_LEFT, c.OFF)
+                set_led(c.LED_FRONT_RIGHT, c.OFF)
+
     def driveStraigthforward(self, speed=None) -> None:
         if(speed is not None):
             assert (isinstance(speed, (list, tuple))), 'speed should be tuple or list'
@@ -53,20 +51,20 @@ class RoboterController(Nano):
         self.set_buzzer(3, 0)
     def _turnRightActions(self, flag) -> None:
 
-        if (flag == 25):
+        if (flag is None):
             self.set_motors(self._MAX_SPEED, self._MID_SPEED);
             print('action -> OC-Right')
-        elif (flag ==5):
-            self.set_motors(self._MAX_SPEED, self._LOW_SPEED);
+        else:
+            self.set_motors(flag[0], flag[1]);
             print('action -> CC-Right');
 
     def _turnLeftActions(self,flag)->None:
 
-        if (flag == 25):
+        if (flag is None):
             self.set_motors(self._MID_SPEED, self._MAX_SPEED);
             print('action -> OC-Left')
-        elif (flag ==5):
-            self.set_motors(self._LOW_SPEED, self._MAX_SPEED);
+        else:
+            self.set_motors(flag[0], flag[1]);
             print('action -> CC-Left');
 
     def _spinRight(self) -> None:
@@ -79,8 +77,8 @@ class RoboterController(Nano):
 
     @staticmethod
     def _convertIntToBool(limit, obstacle)->Tuple:
-        cL = 3 <= obstacle[0] <= limit;  # clo -> 80-40 < x < 80
-        cM = 3 <= obstacle[1] <= limit;
-        cR = 3 <= obstacle[2] <= limit;
+        cL = 2 <= obstacle[0] <= limit;  # clo -> 80-40 < x < 80
+        cM = 2 <= obstacle[1] <= limit;
+        cR = 2 <= obstacle[2] <= limit;
         return cL, cM, cR;
 

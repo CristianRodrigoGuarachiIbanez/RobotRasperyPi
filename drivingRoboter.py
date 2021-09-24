@@ -102,6 +102,10 @@ class DrivingRoboter(RoboterController):
                         self.driveTroughATunnel()
                         self.ledsEnd()
                     else: # barricade?
+                        if not (self.get_distances()[0]<3 and self.get_distances()[0]!=0):
+                            self._turnLeftActions((-3,10))
+                        if not (self.get_distances()[0] < 3 and self.get_distances()[0] != 0):
+                            self._turnRightActions(((10,-3)))
                         continue
             elif(all(self.anyHit(self.get_distances(), self.limits[0]))):
                 # if all sensors are NOT detecting a obstacle, drive forward -> regardless the limit
@@ -132,50 +136,6 @@ class DrivingRoboter(RoboterController):
             return True
         return False
 
-    def avoidDistantLeftObstacle(self, limit) -> bool:
-            # as long as the first criteria is met, than it'll turn a bit to the right.
-            while (self.get_distances()[0] <= limit and self.get_distances()[0]!=0):
-                # and nothing on the right side
-                if not (self.get_distances()[2] <= limit and self.get_distances()[2]!=0):
-                    self._turnRightActions(limit)
-                else:
-                    return True;
-                if(self.get_distances()[1]<=limit and self.get_distances()[1]!=0):
-                    return False
-            return False
-    def avoidDistantRightObstacle(self, limit)->bool:
-            while (self.get_distances()[2] <= limit and self.get_distances()[2]!=0):
-                if not (self.get_distances()[0] <= limit and self.get_distances()[0]!=0):
-                    self._turnLeftActions(limit);
-                else:
-                    return True;
-                if (self.get_distances()[1] <= limit and self.get_distances()[1] != 0):
-                    return False
-            return False
-    def avoidCloseLeftObstacle(self, limit)->bool:
-
-            while((self.get_distances()[0] <= limit) and (self.get_distances()[0]!=0)):
-                if (self.get_distances()[2] <= limit and self.get_distances()[2]!=0):
-                    # self._turnRightActions(limit);
-                    self._spinRight()
-                else:
-                    print('TUNNEL IN FRONT')
-                    return True
-                if (self.get_distances()[1] <= limit and self.get_distances()[1] != 0):
-                    return False
-            return False;
-    def avoidCloseRightObstacle(self,limit)->bool:
-
-            while ((self.get_distances()[2] <= limit) and (self.get_distances()[2]!=0)):
-                if (self.get_distances()[0] <= limit and self.get_distances()[0]!=0):
-                    # self._turnLeftActions(limit);
-                    self._spinLeft()
-                else:
-                    print('TUNNEL IN FRONT')
-                    return True
-                if (self.get_distances()[1] <= limit and self.get_distances()[1] != 0):
-                    return False
-            return False;
     def regulateWheelRotation(self)->None:
              if (self.get_encoders()[0] > self.get_encoders()[1]):
                  self.driveStraigthforward((0, 20))
