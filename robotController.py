@@ -5,6 +5,7 @@ from pibot.leds import set_led, init_leds
 from pibot import constants as c
 from typing import List, Tuple, Dict, Callable, TypeVar, Any
 from logging import info, INFO, DEBUG
+from time import sleep
 import logging
 logging.basicConfig(filename='debugging.log' ,level=INFO, format='%(asctime)s:%(levelname)s:%(message)s');
 
@@ -19,8 +20,15 @@ class RoboterController(Nano):
         super(RoboterController, self).__init__(); # Nano.__init__()
     def driveTroughATunnel(self)->None:
         print('driving through a tunnel')
-        self.driveStraigthforward((15,15))
-        self.ledsStart()
+        if (self.get_distances()[0] <= 5 and self.get_distances()[0] != 0):
+            self._spinRight()
+            sleep(1)
+        elif(self.get_distances()[2] <= 5 and self.get_distances()[2] != 0):
+            self._spinLeft()
+            sleep(1)
+        else:
+            self.driveStraigthforward((15,15))
+            self.ledsStart()
     def ledsStart(self)->None:
         init_leds()
         set_led(c.LED_MID, c.RED)
@@ -29,7 +37,7 @@ class RoboterController(Nano):
         set_led(c.LED_FRONT_LEFT, c.ON)
         set_led(c.LED_FRONT_RIGHT, c.ON)
     def ledsEnd(self)->None:
-        if(self.get_distances()[0]>7 and self.get_distances()[2]>7):
+        if(self.get_distances()[0]>5 and self.get_distances()[2]>5):
             if(self.get_distances()[1] >20):
                 set_led(c.LED_FRONT_LEFT, c.OFF)
                 set_led(c.LED_FRONT_RIGHT, c.OFF)
