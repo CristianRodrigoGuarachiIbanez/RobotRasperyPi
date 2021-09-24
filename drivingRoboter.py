@@ -16,8 +16,10 @@ class DrivingRoboter(RoboterController):
     def __init__(self) -> None:
         super(DrivingRoboter, self).__init__(); # Nano.__init__()
         self.limits = [10, 20]
+
     def mainLoop(self) -> None:
         init_buttons()
+        print('press left button to continue :)')
         wait_for_button_press(c.BUTTON_LEFT)
         while(True):
             if(self.searchForBarricade() is True):
