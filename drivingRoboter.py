@@ -93,6 +93,8 @@ class DrivingRoboter(RoboterController):
                         else:
                             self._spinLeft()
                             sleep(1)
+                    elif((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0) and (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0)):
+                        break
                     else:
                         self.driveStraigthforward((30,30))
                         # break if the obstacles at both sides are gone
