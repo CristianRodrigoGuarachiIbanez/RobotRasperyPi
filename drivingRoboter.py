@@ -96,18 +96,16 @@ class DrivingRoboter(RoboterController):
                     else:
                         self.driveStraigthforward((30,30))
                         # break if the obstacles at both sides are gone
-                    if ((self.get_distances()[0] <= self.limits[0]-5 and self.get_distances()[0]!=0) and (self.get_distances()[2]-5 <= self.limits[0] and self.get_distances()[2]!=0)):
+                    if ((self.get_distances()[0] <= self.limits[0]-5 and self.get_distances()[0]!=0) and (self.get_distances()[2] <= self.limits[0]-5 and self.get_distances()[2]!=0)):
+
                         break
                 self._stop()
-                while((self.get_distances()[0] <= self.limits[0]-5 and self.get_distances()[0]!=0) and (self.get_distances()[2]-5 <= self.limits[0] and self.get_distances()[2]!=0)):
+                while((self.get_distances()[0] <= self.limits[0]-5 and self.get_distances()[0]!=0) and (self.get_distances()[2] <= self.limits[0]-5 and self.get_distances()[2]!=0)):
                     if (self.get_distances()[1] <= 30 and self.get_distances()[1] != 0):
                         self.driveTroughATunnel()
                         self.ledsEnd()
                     else: # barricade?
-                        if not (self.get_distances()[0]<3 and self.get_distances()[0]!=0):
-                            self._turnLeftActions((-3,10))
-                        if not (self.get_distances()[0] < 3 and self.get_distances()[0] != 0):
-                            self._turnRightActions(((10,-3)))
+                        self._stop()
                         continue
             elif(all(self.anyHit(self.get_distances(), self.limits[0]))):
                 # if all sensors are NOT detecting a obstacle, drive forward -> regardless the limit
