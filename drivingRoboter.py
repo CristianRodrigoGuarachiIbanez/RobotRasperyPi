@@ -98,16 +98,17 @@ class DrivingRoboter(RoboterController):
     def driveAlongtheWall(self) -> None:
         wait_for_button_press(c.BUTTON_LEFT)
         print('driving along wall')
-        while not (self.get_distances()[2] < self.limits[0] and self.get_distances()[2]!=0):
+        while not (self.get_distances()[0] < self.limits[0] and self.get_distances()[0]!=0):
              if (self.get_distances()[1] < 30 and self.get_distances()[1]!=0):
                  if (self.get_distances()[0] > self.limits[0] and self.get_distances()[0]!=0):
-                     self._stop()
                      self._turnLeftActions((0,20))
-                 else:
+                     sleep(1)
+                 elif(self.get_distances()[2]>self.limits[0] and self.get_distances()[2]!=0):
                      self._turnRightActions((20,0))
+                     sleep(1)
              else:
                  self.driveStraigthforward((30,30));
-                 if (self.get_distances()[2] > self.limits[0]+5 and self.get_distances()[2] != 0):
+                 if (self.get_distances()[2] > self.limits[0] and self.get_distances()[2] != 0):
                      self._stop()
                      self._turnRightActions((20, 0));
 
