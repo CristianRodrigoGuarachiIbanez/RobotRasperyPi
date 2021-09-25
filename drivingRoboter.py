@@ -102,11 +102,11 @@ class DrivingRoboter(RoboterController):
                  if (self.get_distances()[0] > self.limits[0] and self.get_distances()[0]!=0):
                      self._stop()
                      self._turnLeftActions((-10,10))
-                 elif(self.get_distances()[2] > self.limits[0] and self.get_distances()[2]!=0):
-                     self._stop()
-                     self._turnRightActions((10,-10))
              else:
                  self.driveStraigthforward((20,20));
+                 if (self.get_distances()[2] > self.limits[0] and self.get_distances()[2] != 0):
+                     self._stop()
+                     self._turnRightActions((10, -10))
     def test(self)->None:
         counter=0;
         while(True):
