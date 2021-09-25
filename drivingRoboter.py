@@ -37,7 +37,7 @@ class DrivingRoboter(RoboterController):
                         self._spinLeft()
                         print("turning left",self.get_distances()[2])
                     self._stop()
-                    
+
                 while not ((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0) or (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0)):
                     while ((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0] != 0) and (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2] != 0)):
                         print('<tunnel loop')
@@ -47,10 +47,7 @@ class DrivingRoboter(RoboterController):
                         else:  # barricade?
                             self._stop()
                             continue
-                    if ((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0) and (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0)):
-                        if (self.get_distances()[1] <= 30 and self.get_distances()[1] != 0):
-                            print('tunnel detected')
-                            break
+        
                     # drive forward as long as obstacle in the middle is further away from the limit
                     if(self.get_distances()[1] <= 30 and self.get_distances()[1]!=0):
                         if (self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0):
@@ -60,7 +57,8 @@ class DrivingRoboter(RoboterController):
                             self._spinLeft()
                             sleep(1)
                     else:
-                        self.regulateWheelRotation()
+                        #self.regulateWheelRotation()
+                        self.driveStraigthforward((30,30))
                         # break if the obstacles at both sides are gone
                 self._stop()
 
