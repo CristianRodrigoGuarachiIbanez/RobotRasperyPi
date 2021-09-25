@@ -101,19 +101,24 @@ class DrivingRoboter(RoboterController):
         while not (self.get_distances()[0] < self.limits[0] and self.get_distances()[0]!=0):
              if (self.get_distances()[1] <= 30 and self.get_distances()[1]!=0):
                  if (self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0):
-                       self._spinRight()
-                       sleep(1)
+                     self._spinRight()
+                     sleep(1)
+                     #continue
                  else:
-                       self._spinLeft()
-                       sleep(1)
+                     self._spinLeft()
+                     sleep(1)
+                     #continue
 
              else:
                  self.driveStraigthforward((30,30));
-                 if (self.get_distances()[2] < self.limits[0] and self.get_distances()[2] != 0):
-                     self._turnLeftActions((20, 0))
-                     if (self.get_distances()[2] > self.limits[0] and self.get_distances()[2]!=0):
-                         self._turnRightActions((0,20))
 
+             if not(self.get_distances()[2]<self.limits[0] and self.get_distances()[2]!=0):
+                 while not(self.get_distances()[2]<self.limits[0] and self.get_distances()[2]!=0):
+                     self._turnRightActions(flag=None)
+                     sleep(1)
+                     if (self.get_distances()[2] < self.limits[0] and self.get_distances()[2]!=0):
+                        self._stop()
+                        break
 
     def test(self)->None:
         counter=0;
