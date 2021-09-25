@@ -100,17 +100,19 @@ class DrivingRoboter(RoboterController):
         print('driving along wall')
         while not (self.get_distances()[0] < self.limits[0] and self.get_distances()[0]!=0):
              if (self.get_distances()[1] <= 30 and self.get_distances()[1]!=0):
-                  if (self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0):
-                        self._spinRight()
-                        sleep(1)
-                  else:
-                        self._spinLeft()
-                        sleep(1)
+                 if (self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0):
+                       self._spinRight()
+                       sleep(1)
+                 else:
+                       self._spinLeft()
+                       sleep(1)
+
              else:
                  self.driveStraigthforward((30,30));
-                 if (3 < self.get_distances()[2] < self.limits[0] + 5 and self.get_distances()[2] != 0):
-                    self._turnRightActions((20, 0));
-
+                 if (self.get_distances()[2] < self.limits[0] and self.get_distances()[2] != 0):
+                     self._turnLeftActions((20, 0))
+                     if (self.get_distances()[2] > self.limits[0] and self.get_distances()[2]!=0):
+                         self._turnRightActions((0,20))
 
 
     def test(self)->None:
