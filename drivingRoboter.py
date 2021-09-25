@@ -83,7 +83,7 @@ class DrivingRoboter(RoboterController):
         check if a obstacle in range of 2-6 cm
         :return: a boolean value if all sensors detect obstacles
         '''
-        if(all(self._convertIntToBool(self.limits[0], self.get_distances()))):
+        if(all(self._convertIntToBool(15, self.get_distances()))):
             return True
         return False
 
@@ -97,22 +97,14 @@ class DrivingRoboter(RoboterController):
 
     def driveAlongtheWall(self) -> None:
         print('driving along wall')
-        while not (self.get_distances()[2] <= 5 and self.get_distances()[2]!=0):
-             if (self.get_distances()[1] > 20):
-                 info('no obstacles {}'.format(self.get_encoders()))
-                 #self.driveStraigthforward();
-                 if(self.get_encoders()[0] > self.get_encoders()[1]):
-                    self.driveStraigthforward((0,20))#
-                    info('rotate right {}'.format(self.get_encoders()))
-                 elif(self.get_encoders()[0]<self.get_encoders()[1]):
-                    self.driveStraigthforward((20,0))
-                    info('rotate left {}'.format(self.get_encoders()))
-                 else:
-                     #self.driveStraigthforward((20,20));
-                    pass
-                 info('after adjustment of the wheel rotation: {}'.format(self.get_encoders()))
+        while (2<self.get_distances()[2] <= self.limits[0]+10 and self.get_distances()[2]!=0):
+             if (self.get_distances()[1] < 30 and self.get_distances()[1]!=0):
+                 if (self.get_distances()[0] > self.limits[0] and self.get_distances()[0]!=0):
+                     self._turnLeftActions((0,10))
+                 elif(self.get_distances()[2] > self.limits[0] and self.get_distances()[2]!=0):
+                     self._turnRightActions((10,0))
              else:
-                 self._stop()
+                 self.driveStraigthforward((20,20));
     def test(self)->None:
         counter=0;
         while(True):
@@ -139,8 +131,8 @@ class DrivingRoboter(RoboterController):
 def main():
 
     robot = DrivingRoboter()
-    robot.mainLoop()
-    #robot.driveAlongtheWall()
+    #robot.mainLoop()
+    robot.driveAlongtheWall()
     #robot.test()
     print("outside the main loop")
 
