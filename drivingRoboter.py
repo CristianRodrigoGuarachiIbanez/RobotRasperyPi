@@ -108,9 +108,10 @@ class DrivingRoboter(RoboterController):
                      sleep(1)
              else:
                  self.driveStraigthforward((30,30));
-                 if (self.get_distances()[2] > self.limits[0] and self.get_distances()[2] != 0):
-                     self._stop()
-                     self._turnRightActions((20, 0));
+                 if not (self.get_distances()<self.limits[2] and self.get_distances()[2]!=0):
+                     if (5 < self.get_distances()[2] < self.limits[0]+5 and self.get_distances()[2] != 0):
+                         self._turnRightActions((20, 0));
+
 
     def test(self)->None:
         counter=0;
