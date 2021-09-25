@@ -39,8 +39,9 @@ class DrivingRoboter(RoboterController):
                     self._stop()
                 while not ((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0) or (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0)):
                     if ((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0) and (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0)):
-                        print('tunnel detected')
-                        break
+                        if (self.get_distances()[1] <= 30 and self.get_distances()[1] != 0):
+                            print('tunnel detected')
+                            break
                     # drive forward as long as obstacle in the middle is further away from the limit
                     if(self.get_distances()[1] <= 30 and self.get_distances()[1]!=0):
                         if (self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0):
