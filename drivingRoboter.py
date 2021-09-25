@@ -47,7 +47,7 @@ class DrivingRoboter(RoboterController):
                         else:  # barricade?
                             self._stop()
                             continue
-        
+
                     # drive forward as long as obstacle in the middle is further away from the limit
                     if(self.get_distances()[1] <= 30 and self.get_distances()[1]!=0):
                         if (self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0):
@@ -147,8 +147,8 @@ class DrivingRoboter(RoboterController):
 def main():
 
     robot = DrivingRoboter()
-    #robot.mainLoop()
-    robot.driveAlongtheWall()
+    robot.mainLoop()
+    #robot.driveAlongtheWall()
     #robot.test()
     print("outside the main loop")
 
