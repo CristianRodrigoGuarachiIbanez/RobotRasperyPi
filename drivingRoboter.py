@@ -20,10 +20,7 @@ class DrivingRoboter(RoboterController):
     def mainLoop(self) -> None:
         print('press left button to continue :)')
         wait_for_button_press(c.BUTTON_LEFT)
-<<<<<<< HEAD
         count = 0;
-=======
->>>>>>> 602d415b039c233d737de0a2c5ad462a58e52d9e
         while(True):
             if(self.searchForBarricade() is True):
                 self._park();
@@ -43,23 +40,10 @@ class DrivingRoboter(RoboterController):
                     self._stop()
 
                 while not ((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0) or (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0)):
-<<<<<<< HEAD
-=======
-                    while ((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0] != 0) and (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2] != 0)):
-                        print('<tunnel loop')
-                        if (self.get_distances()[1] > 30 and self.get_distances()[1] != 0):
-                            self.driveTroughATunnel()
-                            self.ledsEnd()
-                        else:  # barricade?
-                            self._stop()
-                            continue
-
->>>>>>> 602d415b039c233d737de0a2c5ad462a58e52d9e
                     # drive forward as long as obstacle in the middle is further away from the limit
                     if(self.get_distances()[1] <= 30 and self.get_distances()[1]!=0):
                         if (self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0):
                             self._spinRight()
-<<<<<<< HEAD
                             count+=1;
                             sleep(1)
                         else:
@@ -73,6 +57,7 @@ class DrivingRoboter(RoboterController):
                         self.driveStraigthforward((30,30))
                         self.ledsEnd()
                         count = 0;
+
                         # break if the obstacles at both sides are gone
                     if (count > 2):
                         print('<tunnel loop')
@@ -82,26 +67,7 @@ class DrivingRoboter(RoboterController):
                             self._stop()
                             continue
                 self._stop()
-
             else:
-=======
-                            sleep(1)
-                        else:
-                            self._spinLeft()
-                            sleep(1)
-                    else:
-                        #self.regulateWheelRotation()
-                        self.driveStraigthforward((30,30))
-                        # break if the obstacles at both sides are gone
-                self._stop()
-
-            else:
-                # while not (self.get_distances()[0] <= self.limits[1] or self.get_distances()[2] <= self.limits[1]):
-                #     if (self.get_distances()[1] >= self.limits[1]):
-                #         self.driveStraigthforward();
-                #     else:
-                #         break;
->>>>>>> 602d415b039c233d737de0a2c5ad462a58e52d9e
                 pass
 
     def anyHit(self, obstacle:Tuple[int,int,int], limit:int)->List[bool]:

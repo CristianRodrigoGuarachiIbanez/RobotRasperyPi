@@ -21,14 +21,7 @@ class RoboterController(Nano):
     def driveTroughATunnel(self)->None:
         print('driving through a tunnel')
         self.ledsStart()
-        if (self.get_distances()[0] <= 7 and self.get_distances()[0] != 0):
-            self._spinRight()
-            sleep(1)
-        elif(self.get_distances()[2] <= 7 and self.get_distances()[2] != 0):
-            self._spinLeft()
-            sleep(1)
-        else:
-            self.driveStraigthforward((15,15))
+        self.driveStraigthforward((30,30))
     def ledsStart(self)->None:
         init_leds()
         set_led(c.LED_MID, c.RED)
@@ -85,8 +78,9 @@ class RoboterController(Nano):
 
     @staticmethod
     def _convertIntToBool(limit, obstacle)->List[bool]:
-        cL = 2 <= obstacle[0] <= limit and obstacle[0] !=0;  # clo -> 80-40 < x < 80
-        cM = 2 <= obstacle[1] <= limit and obstacle[1]!=0;
-        cR = 2 <= obstacle[2] <= limit and obstacle[2]!=0;
+        cL = obstacle[0] <= limit and obstacle[0] !=0;  # clo -> 80-40 < x < 80
+        cM = obstacle[1] <= limit and obstacle[1]!=0;
+        cR = obstacle[2] <= limit and obstacle[2]!=0;
+
         return [cL, cM, cR];
 
