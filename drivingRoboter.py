@@ -32,13 +32,16 @@ class DrivingRoboter(RoboterController):
                     while((self.get_distances()[0] <= self.limits[0]) and (self.get_distances()[0]!=0)):
                         self._spinRight()
                         print("turning right",self.get_distances()[0])
+                        if(self.searchForBarricade() is True):
+                            self._park()
                     self._stop()
                 if((self.get_distances()[2] <= self.limits[0]) and (self.get_distances()[2]!=0)): # obstacle_distance <= 5cm
                     while((self.get_distances()[2] <= self.limits[0]) and (self.get_distances()[2]!=0)):
                         self._spinLeft()
                         print("turning left",self.get_distances()[2])
+                        if (self.searchForBarricade() is True):
+                            self._park()
                     self._stop()
-
                 while not ((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0) or (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0)):
                     # drive forward as long as obstacle in the middle is further away from the limit
                     if(self.get_distances()[1] <= 30 and self.get_distances()[1]!=0):
@@ -51,17 +54,18 @@ class DrivingRoboter(RoboterController):
                             count+=1;
                             sleep(1)
                         if(self.searchForBarricade()):
+                            self._park()
                             continue
                     else:
                         #self.regulateWheelRotation()
                         self.driveStraigthforward((30,30))
-                        #count = 0;
+                        count = 0;
                         print("Index:", count)
                         # break if the obstacles at both sides are gone
                         if(self.get_distances()[2] >self.limits[0]*3 and self.get_distances()[2]!=0):
                             print('distance:', self.get_distances())
                             self._spinRight()
-                    if (count > 2):
+                    if (count==2):
                         print('<tunnel loop')
                         self.ledsStart()
                         self._stop()
@@ -86,7 +90,7 @@ class DrivingRoboter(RoboterController):
         check if a obstacle in range of 2-6 cm
         :return: a boolean value if all sensors detect obstacles
         '''
-        if(all(self._convertIntToBool(15, self.get_distances()))):
+        if(all(self._convertIntToBool(10, self.get_distances()))):
             return True
         return False
 
