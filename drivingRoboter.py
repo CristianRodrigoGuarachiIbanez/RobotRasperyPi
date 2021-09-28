@@ -57,13 +57,13 @@ class DrivingRoboter(RoboterController):
                         if(self.searchForBarricade() is True):
                             self._park()
                             #continue
-                    else:
+                    elif((self.get_distances()[1] > 30) and (self.get_distances()[1]!=0)):
                         #self.regulateWheelRotation()
                         self.driveStraigthforward((30,30))
                         count = 0;
                         print("Index:", count)
                         # break if the obstacles at both sides are gone
-                        if(self.get_distances()[2] >self.limits[0]*3 and self.get_distances()[2]!=0):
+                        if(self.get_distances()[2]>self.limits[0]*3 and self.get_distances()[2]!=0):
                             print('distance:', self.get_distances())
                             self._spinRight()
                         else:
