@@ -1,0 +1,4 @@
+https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+
+# erstellter Token
+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
