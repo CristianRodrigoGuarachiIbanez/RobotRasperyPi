@@ -58,15 +58,16 @@ class DrivingRoboter(RoboterController):
                         count = 0;
                         print("Index:", count)
                         # break if the obstacles at both sides are gone
-                        if(self.get_distances()[2] >self.limits[2]*3 and self.get_distances()[2]!=0):
+                        if(self.get_distances()[2] >self.limits[0]*3 and self.get_distances()[2]!=0):
                             print('distance:', self.get_distances())
                             self._spinRight()
                     if (count > 2):
                         print('<tunnel loop')
-                        self.driveTroughATunnel()
+                        self.ledsStart()
                         self._stop()
                         if(self.searchForBarricade()):  # barricade?
                             self._stop()
+                            self.ledsEnd()
                             continue
                 self._stop()
             else:
