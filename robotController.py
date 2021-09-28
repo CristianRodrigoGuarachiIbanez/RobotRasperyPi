@@ -31,8 +31,8 @@ class RoboterController(Nano):
         set_led(c.LED_FRONT_LEFT, c.ON)
         set_led(c.LED_FRONT_RIGHT, c.ON)
     def ledsEnd(self)->None:
-        if(self.get_distances()[0]>5 and self.get_distances()[2]>5):
-            if(self.get_distances()[1] >20):
+        if((self.get_distances()[0]>5 and self.get_distances()[0]!=0) and (self.get_distances()[2]>5 and self.get_distances()[2]!=0)):
+            if(self.get_distances()[1] >20 and self.get_distances()[1]!=0):
                 set_led(c.LED_FRONT_LEFT, c.OFF)
                 set_led(c.LED_FRONT_RIGHT, c.OFF)
 

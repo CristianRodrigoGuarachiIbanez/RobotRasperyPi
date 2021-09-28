@@ -69,14 +69,14 @@ class DrivingRoboter(RoboterController):
                     if (count>2):
                         print('<tunnel loop')
                         self.ledsStart()
-                        #self._stop()
                         if(self.searchForBarricade() is True):  # barricade?
                             self._park()
                             self.ledsEnd()
                             continue
                 self._stop()
             else:
-                self.driveStraigthforward((30,30))
+                # self.driveStraigthforward((30,30))
+                pass
 
     def anyHit(self, obstacle:Tuple[int,int,int], limit:int)->List[bool]:
         print('ANY HIT:{}'.format(any([obstacle[0]<=limit and obstacle[0]!=0,
@@ -91,7 +91,7 @@ class DrivingRoboter(RoboterController):
         check if a obstacle in range of 2-6 cm
         :return: a boolean value if all sensors detect obstacles
         '''
-        if(all(self._convertIntToBool(15, self.get_distances()))):
+        if(all(self._convertIntToBool(10, self.get_distances()))):
             return True
         return False
 
