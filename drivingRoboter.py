@@ -59,6 +59,7 @@ class DrivingRoboter(RoboterController):
                         print("Index:", count)
                         # break if the obstacles at both sides are gone
                         if(self.get_distances()[2] >self.limits[2]*3 and self.get_distances()[2]!=0):
+                            print('distance:', self.get_distances())
                             self._spinRight()
                     if (count > 2):
                         print('<tunnel loop')
