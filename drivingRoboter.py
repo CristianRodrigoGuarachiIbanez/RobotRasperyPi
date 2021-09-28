@@ -66,6 +66,8 @@ class DrivingRoboter(RoboterController):
                         if(self.get_distances()[2] >self.limits[0]*3 and self.get_distances()[2]!=0):
                             print('distance:', self.get_distances())
                             self._spinRight()
+                        else:
+                            continue
                     if (count>2):
                         print('<tunnel loop')
                         self.ledsStart()
