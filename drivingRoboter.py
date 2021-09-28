@@ -70,9 +70,8 @@ class DrivingRoboter(RoboterController):
                         print('<tunnel loop')
                         self.ledsStart()
                         if(self.searchForBarricade() is True):  # barricade?
-                            self._park()
                             self.ledsEnd()
-                            continue
+                            self._park()
                 self._stop()
             else:
                 # self.driveStraigthforward((30,30))
