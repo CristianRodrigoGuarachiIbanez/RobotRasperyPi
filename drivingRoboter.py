@@ -56,7 +56,7 @@ class DrivingRoboter(RoboterController):
                         #self.regulateWheelRotation()
                         self.driveStraigthforward((30,30))
                         count = 0;
-
+                        print("Index:", count)
                         # break if the obstacles at both sides are gone
                     if (count > 2):
                         print('<tunnel loop')
