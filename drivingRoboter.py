@@ -68,9 +68,9 @@ class DrivingRoboter(RoboterController):
                     if (count==2):
                         print('<tunnel loop')
                         self.ledsStart()
-                        self._stop()
+                        #self._stop()
                         if(self.searchForBarricade()):  # barricade?
-                            self._stop()
+                            self._park()
                             self.ledsEnd()
                             continue
                 self._stop()
