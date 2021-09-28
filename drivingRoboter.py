@@ -90,7 +90,7 @@ class DrivingRoboter(RoboterController):
         check if a obstacle in range of 2-6 cm
         :return: a boolean value if all sensors detect obstacles
         '''
-        if(all(self._convertIntToBool(10, self.get_distances()))):
+        if(all(self._convertIntToBool(5, self.get_distances()))):
             return True
         return False
 
