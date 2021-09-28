@@ -7,6 +7,7 @@ from typing import List, Tuple, Dict, Callable, TypeVar, Any
 from logging import info, INFO, DEBUG
 from time import sleep
 import logging
+from sys import exit
 logging.basicConfig(filename='debugging.log' ,level=INFO, format='%(asctime)s:%(levelname)s:%(message)s');
 
 class RoboterController(Nano):
@@ -50,6 +51,7 @@ class RoboterController(Nano):
     def _park(self)->None:
         self._stop()
         self.set_buzzer(3, 0)
+        exit("exit the programm")
     def _turnRightActions(self, flag) -> None:
 
         if (flag is None):
@@ -78,7 +80,7 @@ class RoboterController(Nano):
 
     @staticmethod
     def _convertIntToBool(limit, obstacle)->List[bool]:
-        cL = obstacle[0] <= limit and obstacle[0] !=0;  # clo -> 80-40 < x < 80
+        cL = obstacle[0] <= limit and obstacle[0]!=0;  # clo -> 80-40 < x < 80
         cM = obstacle[1] <= limit and obstacle[1]!=0;
         cR = obstacle[2] <= limit and obstacle[2]!=0;
 
