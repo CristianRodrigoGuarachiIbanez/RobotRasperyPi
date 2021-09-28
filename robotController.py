@@ -40,10 +40,10 @@ class RoboterController(Nano):
         if(speed is not None):
             assert (isinstance(speed, (list, tuple))), 'speed should be tuple or list'
             self.set_motors(speed[0],speed[1]);
-            print('driving forwards')
+            print('driving forward')
         else:
             self.set_motors(self._SPEED, self._SPEED);
-            print('driving forwards')
+            print('driving forward')
 
     def _stop(self) -> None:
         self.set_motors(self._STOP,self._STOP);

@@ -24,21 +24,22 @@ class DrivingRoboter(RoboterController):
         while(True):
             if(self.searchForBarricade() is True):
                 self._park();
-                break;
             print(self.get_distances())
             # 1.- check if any obstacle in 5 cm
             if(any(self.anyHit(self.get_distances(), self.limits[0]))): # any Ob closer than 5 cm
                 if((self.get_distances()[0] <= self.limits[0]) and (self.get_distances()[0]!=0)): # if Ob left <= 5
+                    count += 1
                     while((self.get_distances()[0] <= self.limits[0]) and (self.get_distances()[0]!=0)):
                         self._spinRight()
-                        print("turning right",self.get_distances()[0])
+                        print("turning right",self.get_distances())
                         if(self.searchForBarricade() is True):
                             self._park()
                     self._stop()
                 if((self.get_distances()[2] <= self.limits[0]) and (self.get_distances()[2]!=0)): # obstacle_distance <= 5cm
+                    count += 1
                     while((self.get_distances()[2] <= self.limits[0]) and (self.get_distances()[2]!=0)):
                         self._spinLeft()
-                        print("turning left",self.get_distances()[2])
+                        print("turning left",self.get_distances())
                         if (self.searchForBarricade() is True):
                             self._park()
                     self._stop()
@@ -53,7 +54,7 @@ class DrivingRoboter(RoboterController):
                             self._spinLeft()
                             count+=1;
                             sleep(1)
-                        if(self.searchForBarricade()):
+                        if(self.searchForBarricade() is True):
                             self._park()
                             #continue
                     else:
@@ -65,17 +66,17 @@ class DrivingRoboter(RoboterController):
                         if(self.get_distances()[2] >self.limits[0]*3 and self.get_distances()[2]!=0):
                             print('distance:', self.get_distances())
                             self._spinRight()
-                    if (count==2):
+                    if (count>2):
                         print('<tunnel loop')
                         self.ledsStart()
                         #self._stop()
-                        if(self.searchForBarricade()):  # barricade?
+                        if(self.searchForBarricade() is True):  # barricade?
                             self._park()
                             self.ledsEnd()
                             continue
                 self._stop()
             else:
-                pass
+                self.driveStraigthforward((30,30))
 
     def anyHit(self, obstacle:Tuple[int,int,int], limit:int)->List[bool]:
         print('ANY HIT:{}'.format(any([obstacle[0]<=limit and obstacle[0]!=0,
