@@ -46,7 +46,7 @@ class DrivingRoboter(RoboterController):
                             self._spinRight()
                             count+=1;
                             sleep(1)
-                        else:
+                        elif(self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0):
                             self._spinLeft()
                             count+=1;
                             sleep(1)
