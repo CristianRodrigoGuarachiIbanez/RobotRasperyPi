@@ -55,7 +55,6 @@ class DrivingRoboter(RoboterController):
                     else:
                         #self.regulateWheelRotation()
                         self.driveStraigthforward((30,30))
-                        self.ledsEnd()
                         count = 0;
 
                         # break if the obstacles at both sides are gone
