@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-import sys
 from pibot.nano import Nano
 from pibot.leds import set_led, init_leds
 from pibot import constants as c
 from typing import List, Tuple, Dict, Callable, TypeVar, Any
 from logging import info, INFO, DEBUG
-from time import sleep
 import logging
 from sys import exit
 logging.basicConfig(filename='debugging.log' ,level=INFO, format='%(asctime)s:%(levelname)s:%(message)s');
@@ -31,7 +29,7 @@ class RobotController(Nano):
         set_led(c.LED_FRONT_LEFT, c.ON)
         set_led(c.LED_FRONT_RIGHT, c.ON)
     def ledsEnd(self)->None:
-        if((self.get_distances()[0]>10 and self.get_distances()[0]!=0)):
+        if(self.get_distances()[0]>10 and self.get_distances()[0]!=0):
             if(self.get_distances()[1] >10 and self.get_distances()[1]!=0):
                 set_led(c.LED_FRONT_LEFT, c.OFF)
                 set_led(c.LED_FRONT_RIGHT, c.OFF)
