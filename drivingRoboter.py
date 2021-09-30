@@ -3,14 +3,14 @@ import sys
 from pibot.nano import Nano
 from typing import List, Tuple, Dict, Callable, TypeVar, Any, Generator
 from logging import info, INFO, DEBUG, basicConfig
-from robotController import RoboterController
+from robotController import RobotController
 from pibot import constants as c
 from pibot.buttons import wait_for_any, wait_for_button_press, init_buttons
 from sys import exit
 from time import sleep
 basicConfig(filename='debugging.log' ,level=INFO, format='%(asctime)s:%(levelname)s:%(message)s');
 init_buttons()
-class DrivingRoboter(RoboterController):
+class DrivingRoboter(RobotController):
     B = TypeVar('B', bytearray, bytes);
     _dist = None;
     _distance_limit= 20;

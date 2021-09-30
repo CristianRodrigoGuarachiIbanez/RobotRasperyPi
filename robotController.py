@@ -10,7 +10,7 @@ import logging
 from sys import exit
 logging.basicConfig(filename='debugging.log' ,level=INFO, format='%(asctime)s:%(levelname)s:%(message)s');
 
-class RoboterController(Nano):
+class RobotController(Nano):
     B = TypeVar('B', bytearray, bytes);
     _MAX_SPEED= 30;
     _SPEED=20
@@ -18,7 +18,7 @@ class RoboterController(Nano):
     _LOW_SPEED=5;
     _STOP=0;
     def __init__(self) -> None:
-        super(RoboterController, self).__init__(); # Nano.__init__()
+        super(RobotController, self).__init__(); # Nano.__init__()
     def driveTroughATunnel(self)->None:
         print('driving through a tunnel')
         self.ledsStart()
