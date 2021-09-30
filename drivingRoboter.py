@@ -43,6 +43,11 @@ class DrivingRoboter(RoboterController):
                         if (self.searchForBarricade() is True):
                             self._park()
                     self._stop()
+                if (count == 2):
+                    print("driving through a tunnel")
+                    self.ledsStart()
+                    if (self.searchForBarricade() is True):  # barricade?
+                        self._park()
                 while not ((self.get_distances()[0] <= self.limits[0] and self.get_distances()[0]!=0) or (self.get_distances()[2] <= self.limits[0] and self.get_distances()[2]!=0)):
                     # drive forward as long as obstacle in the middle is further away from the limit
                     if(self.get_distances()[1] <= 25 and self.get_distances()[1]!=0):
@@ -70,11 +75,6 @@ class DrivingRoboter(RoboterController):
                             self._spinRight()
                         else:
                             continue
-                if(count==2):
-                    print("driving through a tunnel")
-                    self.ledsStart()
-                    if(self.searchForBarricade() is True):  # barricade?
-                        self._park()
                 self._stop()
             else:
                 # self.driveStraigthforward((30,30))
