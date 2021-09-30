@@ -43,7 +43,7 @@ class DrivingRoboter(RobotController):
                         if (self.searchForBarricade() is True):
                             self._park()
                     self._stop()
-                if (count == 2):
+                if (count > 2):
                     print("driving through a tunnel")
                     self.ledsStart()
                     if (self.searchForBarricade() is True):  # barricade?
