@@ -1,6 +1,6 @@
 # PiBot Project
 The project PiBot was originally developed to learn the use of the PiBot.
-The library for controlling the PiBot was taken from [*here](https://gitlab.hrz.tu-chemnitz.de/ketf--tu-chemnitz.de/hufa-pibot.git)
+The library for controlling the PiBot was taken from [*here*](https://gitlab.hrz.tu-chemnitz.de/ketf--tu-chemnitz.de/hufa-pibot.git).
 In this repository are primarely included the code script to drive the a RasperiPy-Robot through the following parkour using the robot library PiBot:
 ![_PARKOUR_](https://github.com/CristianRodrigoGuarachiIbanez/RobotRasperyPi/blob/main/auxiliares/parkour.jpeg)
 
