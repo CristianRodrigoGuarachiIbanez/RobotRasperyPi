@@ -1,16 +1,16 @@
 # PiBot Project
-The project PiBot was originally developed to learn the use of the PiBot.
-The library for controlling the PiBot was taken from [*here*](https://gitlab.hrz.tu-chemnitz.de/ketf--tu-chemnitz.de/hufa-pibot.git).
-In this repository are primarely included the code script to drive the a RasperiPy-Robot through the following parkour using the robot library PiBot:
+The project PiBot was originally developed to learn the use of the PiBot library for python. 
+The PiBot library was originally taken from [*here*](https://gitlab.hrz.tu-chemnitz.de/ketf--tu-chemnitz.de/hufa-pibot.git). This will be used to controll a RasperyPy-Robot.
+In this repository, the code script is primarely included to drive the a RasperiPy-Robot through the following parkour using the robot library PiBot:
 ![_PARKOUR_](https://github.com/CristianRodrigoGuarachiIbanez/RobotRasperyPi/blob/main/auxiliares/parkour.jpeg)
 For this porpuse, three ultrasonic sensors were used, which were attached and installed to the RasperyPi-Robot. They return the distance to the obstacles in the environment in three different direction: Left, Middel and Right. The sensors were calibrated and carried out with help of the Pibo library. 
 
 # Installation
-You need a PiBot and the corresponding operating system (OS) on a micro sd card.
+PiBot and the corresponding operating system (OS) on a micro sd card are needed.
 The OS is already prepared for use.
 
 # How to use
-To use the PiBot, you simply have to 
+To use the PiBot: 
 ##### 1. Connect a mouse, keyboard and screen
 to the corresponding ports of the Raspberry Pi,
 ##### 2. Connect the powerbank and the 9V battery 
@@ -25,18 +25,18 @@ until the operating system has booted successfully.
 To get the latest version of the project files, you have to perform the following steps:
 
 ##### 1. Connect to the internet.
-First, you have to make sure, that you are connected to the internet.
-You can connect to your WLAN via the network button in the upper right corner.
+First, make sure, that local computer is connected to the internet.
+it could be connected to the WLAN via the network button in the upper right corner.
 
 <img src="assets/network.png" width="200" alt="Network button">
 
 ##### 2. Open a terminal.
-You can do this by clicking on the terminal icon on the upper taskbar or in the menu.
+That oculd be done by clicking on the terminal icon on the upper taskbar or in the menu.
 
 <img src="assets/Open-Terminal-Raspberry-Pi.jpg" width="500" alt="How to open a terminal">
 
 ##### 3. Navigate to the hufa-pibot directory.
-You can do this by typing 
+it could be done by typing 
 ```bash
 cd ~/hufa-pibot
 ```
@@ -50,7 +50,7 @@ the latest version of the files will be downloaded from the server.
 
 
 # Usage of the library
-To use the funcionalities of the PiBot, you have to include the library files to your project.
+To use the funcionalities of the PiBot, the library files should be included to your project.
 This is already done for all provided files. 
 Nevertheless here is the example code how to do this:
 
