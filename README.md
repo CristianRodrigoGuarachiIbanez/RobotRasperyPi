@@ -1,6 +1,6 @@
 # PiBot Project
 The project PiBot was originally developed to learn the use of the PiBot library for python. 
-The PiBot library was originally taken from [*here*](https://gitlab.hrz.tu-chemnitz.de/ketf--tu-chemnitz.de/hufa-pibot.git). This will be used to controll a RasperyPy-Robot.
+The PiBot library was originally taken from [*here*](https://gitlab.hrz.tu-chemnitz.de/ketf--tu-chemnitz.de/hufa-pibot.git). This will be used to control a RasperyPy-Robot.
 In this repository, the code script is primarely included to drive the a RasperiPy-Robot through the following parkour using the robot library PiBot:
 ![_PARKOUR_](https://github.com/CristianRodrigoGuarachiIbanez/RobotRasperyPi/blob/main/auxiliares/parkour.jpeg)
 For this porpuse, three ultrasonic sensors were used, which were attached and installed to the RasperyPi-Robot. They return the distance to the obstacles in the environment in three different direction: Left, Middel and Right. The sensors were calibrated and carried out with help of the Pibo library. 
